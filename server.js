@@ -5,10 +5,11 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-var devPort = 8080;
-var db = mongoose.connection;
+var port = process.env.PORT || 8080;
+var database = require('./config/database');
 
 // app config ======================================
+mongoose.connect(database.url);
 
 app.use(express.static(__dirname + '/public'));
 
@@ -20,17 +21,11 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 
 app.use(methodOverride());
 
-//db with models======================================
-db.on('error', console.error);
-db.once('open', function(){
-
-  var Todo = mongoose.model('Todo', {
-    text: String
-  });
-
+//models======================================
+var Todo = mongoose.model('Todo', {
+  text: String
 });
 
-mongoose.connect('mongodb://localhost/test');
 //routes======================================
   app.get('/api/todos', function(request, resolve){
     Todo.find(function(err, todos){
@@ -82,5 +77,5 @@ app.get('*', function(req, res){
   res.sendfile('/public/index.html');
 });
 //listen======================================
-app.listen(devPort);
-console.log("App listening on port "+ devPort );
+app.listen(port);
+console.log("App listening on port "+ port );

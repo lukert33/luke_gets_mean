@@ -1,0 +1,13 @@
+{
+  "name": "Luke's Node Todo",
+  "description": "Slim MEAN todo application.",
+  "keywords": [
+    "todo",
+    "node",
+    "angular",
+    "mongodb"
+  ],
+  "addons": [
+    "mongohq"
+  ]
+}
