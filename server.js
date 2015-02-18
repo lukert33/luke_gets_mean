@@ -32,7 +32,7 @@ db.once('open', function(){
 
 mongoose.connect('mongodb://localhost/test');
 //routes======================================
-  app.get('/todos', function(request, resolve){
+  app.get('/api/todos', function(request, resolve){
     Todo.find(function(err, todos){
       if(err){
         resolve.send(err);
@@ -42,7 +42,7 @@ mongoose.connect('mongodb://localhost/test');
     });
   });
 
-  app.post('/todos', function(request, resolve){
+  app.post('/api/todos', function(request, resolve){
     Todo.create({
       text: request.body.text,
       done: false
@@ -60,7 +60,7 @@ mongoose.connect('mongodb://localhost/test');
     });
   });
 
-  app.delete('todos/:todo_id', function(request, resolve){
+  app.delete('/api/todos/:todo_id', function(request, resolve){
     Todo.remove({
       _id : request.params.todo_id
     }, function(err, todo){
