@@ -78,7 +78,9 @@ mongoose.connect('mongodb://localhost/test');
     });
   });
 
-
+app.get('*', function(req, res){
+  res.sendfile('/public/index.html');
+});
 //listen======================================
 app.listen(devPort);
 console.log("App listening on port "+ devPort );
