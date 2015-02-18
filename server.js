@@ -9,7 +9,6 @@ var devPort = 8080;
 mongoose.connect('mongodb://127.0.0.1/tododb');
 
 // app config ======================================
-mongoose.connect(database.url);
 
 app.use(express.static(__dirname + '/public'));
 
@@ -87,5 +86,5 @@ app.get('*', function(req, res){
   res.sendfile('/public/index.html');
 });
 //listen======================================
-app.listen(port);
-console.log("App listening on port "+ port );
+app.listen(devPort);
+console.log("App listening on port "+ devPort );
