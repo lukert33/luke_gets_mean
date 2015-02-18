@@ -21,10 +21,20 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 
 app.use(methodOverride());
 
-//models======================================
-var Todo = mongoose.model('Todo', {
-  text: String
+
+//db with models======================================
+var db = mongoose.connection;
+
+db.on('error', console.error);
+db.once('open', function(){
+
+  var todoSchema = mongoose.Schema({
+    text : String
+  });
+
+  Todo = mongoose.model('Todo', todoSchema);
 });
+
 
 //routes======================================
   app.get('/api/todos', function(request, resolve){
