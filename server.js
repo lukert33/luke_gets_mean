@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
-var port = process.env.PORT || 8080;
-var database = require('./config/database');
+var devPort = 8080;
+mongoose.connect('mongodb://127.0.0.1/tododb');
 
 // app config ======================================
 mongoose.connect(database.url);
@@ -21,10 +21,20 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 
 app.use(methodOverride());
 
-//models======================================
-var Todo = mongoose.model('Todo', {
-  text: String
+
+//db with models======================================
+var db = mongoose.connection;
+
+db.on('error', console.error);
+db.once('open', function(){
+
+  var todoSchema = mongoose.Schema({
+    text : String
+  });
+
+  Todo = mongoose.model('Todo', todoSchema);
 });
+
 
 //routes======================================
   app.get('/api/todos', function(request, resolve){
