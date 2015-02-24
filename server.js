@@ -6,7 +6,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var devPort = 8080;
-mongoose.connect('mongodb://127.0.0.1/tododb');
+mongoose.connect('mongodb://127.0.0.1/factoidDb');
 
 // app config ======================================
 
